@@ -98,7 +98,8 @@ class Fasta(Mapping):
             if line[0] == ">":
                 if seqs is not None:
                     if header in seen_headers:
-                        raise DuplicateHeaderException(header)
+                        print("WARNING: duplicate header id %s" % header)
+                        header = '%s_%d' % (header, len("".join(seqs)))
                     seen_headers.add(header)
                     yield header, "".join(seqs)
 

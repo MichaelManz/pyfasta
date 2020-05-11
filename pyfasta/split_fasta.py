@@ -1,11 +1,14 @@
 from __future__ import print_function
-from pyfasta import Fasta
+
+import re
+
 import operator
 import collections
 import string
 import sys
 import optparse
-from cStringIO import StringIO
+
+from pyfasta.fasta import Fasta
 
 
 def newnames(oldname, n, kmers=None, overlap=None, header=None):
@@ -95,6 +98,12 @@ def split(args):
     split big files into pieces of this size in basepairs. default
     default of -1 means do not split the sequence up into k-mers, just
     split based on the headers. a reasonable value would be 10Kbp""")
+    parser.add_option("-s", "--size", type="int", dest="max_seq_size",
+                      help="Max sequence size to extract",
+                      default=None)
+    parser.add_option("-r", "--normalize", action="store_true", dest="normalize",
+                      help="Normalize file paths and sequence ids",
+                      default=False)
     options, fasta = parser.parse_args(args)
     if not (fasta and (options.nsplits or options.header)):
         sys.exit(parser.print_help())
@@ -116,7 +125,7 @@ def split(args):
         fhs = dict([(seqid, open(fn, 'wb')) for seqid, fn in names[:200]])
         fhs.extend([(seqid, StringIO(), fn) for seqid, fn in names[200:]])
         """
-        return with_header_names(f, names)
+        return with_header_names(f, names, options.normalize, options.max_seq_size)
     else:
         names = newnames(fasta, options.nsplits, kmers=kmer, overlap=overlap, 
                      header=options.header)
@@ -126,15 +135,39 @@ def split(args):
         return without_kmers(f, names)
     else: 
         return with_kmers(f, names, options.kmers, options.overlap)
+def slugify(value):
+    """
+    Normalizes string, converts to lowercase, removes non-alpha characters,
+    and converts spaces to hyphens.
+    """
+    import unicodedata
+    value = unicodedata.normalize('NFKD', unicode(value)).encode('ascii', 'ignore')
+    value = unicode(re.sub('[^\w\s-]', '_', value).strip().lower())
+    value = unicode(replace_whitespace(value))
+    return value
 
-def with_header_names(f, names):
+
+def replace_whitespace(value):
+    return re.sub('[-\s]+', '-', value)
+
+
+def with_header_names(f, names, normalize=False, max_seq_size=None):
     """
     split the fasta into the files in fhs by headers.
     """
     for seqid, name in names.iteritems():
-        with open(name, 'w') as fh:
-            print(">%s" % seqid, file=fh)
-            print(str(f[seqid]), file=fh)
+        if normalize:
+            name = slugify(name)
+
+        seq = f[seqid]
+        if normalize:
+            seqid = replace_whitespace(seqid)
+        if max_seq_size is None or len(seq) < max_seq_size:
+            with open(name, 'w') as fh:
+                    print(">%s" % seqid, file=fh)
+                    print(str(seq), file=fh)
+        else:
+            print("Skipping seq %s with size %d" % (seqid, len(seq)))
 
 def with_kmers(f, names, k, overlap):
     """

@@ -31,6 +31,7 @@ setup(name='pyfasta',
       zip_safe=False,
       install_requires=[
           # -*- Extra requirements: -*-
+            "numpy"
       ],
       scripts=[],
       entry_points={
