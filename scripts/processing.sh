@@ -9,7 +9,7 @@ cd "$OUTPUT_DIR_SPLIT"
 echo "Running pyfasta split on $FILE into $OUTPUT_DIR_SPLIT"
 pyfasta split --header '%(seqid)s' -r -s 10000 "../$FILE"
 
-NUM_PROC=12
+NUM_PROC=$(grep -c ^processor /proc/cpuinfo)
 
 OUTPUT_DIR_FOLD=$FILE.fold
 mkdir "../$OUTPUT_DIR_FOLD"
