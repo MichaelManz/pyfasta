@@ -33,14 +33,18 @@ while (<>) {
 	    print "$frame0\t";
 	    print "$frame1\t";
 	    print "$frame2\t";
-# What proportion of the paired bases are in each of the three frames?
-	    $pf0 = $frame0/$sumframes; print "$pf0\t";
-	    $pf1 = $frame1/$sumframes; print "$pf1\t";
-	    $pf2 = $frame2/$sumframes; print "$pf2\t";
-# What frame accounts for gains or losses of base pairs during evolution?
-	   $uf0 = $frame0/$unpaired; print "$uf0\t";
-	   $uf1 = $frame1/$unpaired; print "$uf1\t";
-	   $uf2 = $frame2/$unpaired; print "$uf2\t";
+	    if ($sumframes != 0) {
+    # What proportion of the paired bases are in each of the three frames?
+            $pf0 = $frame0/$sumframes; print "$pf0\t";
+            $pf1 = $frame1/$sumframes; print "$pf1\t";
+            $pf2 = $frame2/$sumframes; print "$pf2\t";
+        }
+        if ($unpaired != 0) {
+    # What frame accounts for gains or losses of base pairs during evolution?
+           $uf0 = $frame0/$unpaired; print "$uf0\t";
+           $uf1 = $frame1/$unpaired; print "$uf1\t";
+           $uf2 = $frame2/$unpaired; print "$uf2\t";
+        }
 #What proportion of bases are unpaired in the whole sequence?
 	    $pu = $unpaired/$N ; print "$pu\t";
 	    print "$unpaired\t";
@@ -106,14 +110,18 @@ print "$E\t";
 print "$frame0\t";
 print "$frame1\t";
 print "$frame2\t";
+if ($sumframes != 0) {
 # What proportion of the paired bases are in each of the three frames?
 	    $pf0 = $frame0/$sumframes; print "$pf0\t";
 	    $pf1 = $frame1/$sumframes; print "$pf1\t";
 	    $pf2 = $frame2/$sumframes; print "$pf2\t";
+}
+if ($unpaired != 0) {
 # What frame accounts for gains or losses of base pairs during evolution?
 	   $uf0 = $frame0/$unpaired; print "$uf0\t";
 	   $uf1 = $frame1/$unpaired; print "$uf1\t";
 	   $uf2 = $frame2/$unpaired; print "$uf2\t";
+}
 #What proportion of bases are unpaired in the whole sequence?
 	    $pu = $unpaired/$F[0]; print "$pu\t";
 print "$unpaired\t";

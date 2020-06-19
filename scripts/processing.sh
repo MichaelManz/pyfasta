@@ -6,8 +6,10 @@ OUTPUT_DIR_SPLIT=$FILE.split
 mkdir "$OUTPUT_DIR_SPLIT"
 cd "$OUTPUT_DIR_SPLIT"
 
+SIZE_LIMIT=${SIZE_LIMIT:-10000}
+
 echo "Running pyfasta split on $FILE into $OUTPUT_DIR_SPLIT"
-pyfasta split --header '%(seqid)s' -r -s 10000 "../$FILE"
+pyfasta split --header '%(seqid)s' -r -s $SIZE_LIMIT "../$FILE"
 
 NUM_PROC=$(grep -c ^processor /proc/cpuinfo)
 
