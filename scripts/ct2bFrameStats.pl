@@ -27,35 +27,32 @@ while (<>) {
 #SeqID	E 	F1count	F2count	F3count	F1/SF	F2/SF	F3/SF	F1/U	F2/U	F3/U	U/Len	Len	E/Len
 	    $sumframes = $frame0 + $frame1 + $frame2;
 #	    print "$s ($E)\n";
-	    print "$seqid\t";
-	    print "HxNy\t";
-	    print "$E\t";
-	    print "$frame0\t";
-	    print "$frame1\t";
-	    print "$frame2\t";
+	    print "$seqid|";
+	    print "HxNy|";
+	    print "$E|";
+	    print "$frame0|";
+	    print "$frame1|";
+	    print "$frame2|";
 	    if ($sumframes != 0) {
     # What proportion of the paired bases are in each of the three frames?
-            $pf0 = $frame0/$sumframes; print "$pf0\t";
-            $pf1 = $frame1/$sumframes; print "$pf1\t";
-            $pf2 = $frame2/$sumframes; print "$pf2\t";
+            $pf0 = $frame0/$sumframes; print "$pf0|";
+            $pf1 = $frame1/$sumframes; print "$pf1|";
+            $pf2 = $frame2/$sumframes; print "$pf2|";
         }
         if ($unpaired != 0) {
     # What frame accounts for gains or losses of base pairs during evolution?
-           $uf0 = $frame0/$unpaired; print "$uf0\t";
-           $uf1 = $frame1/$unpaired; print "$uf1\t";
-           $uf2 = $frame2/$unpaired; print "$uf2\t";
+           $uf0 = $frame0/$unpaired; print "$uf0|";
+           $uf1 = $frame1/$unpaired; print "$uf1|";
+           $uf2 = $frame2/$unpaired; print "$uf2|";
         }
 #What proportion of bases are unpaired in the whole sequence?
-	    $pu = $unpaired/$N ; print "$pu\t";
-	    print "$unpaired\t";
+	    $pu = $unpaired/$N ; print "$pu|";
+	    print "$unpaired|";
 # What is the average mfe per bp for the sequence?
 	    
-	    print "$N\t";
-	    $Eb = $E/$N ; print "$Eb\t";
-#print a link to the fludb page with info on this particular cds -- only relevant for cds analysis
-	    	#print "http://www.fludb.org/brc/fluSegmentDetails.do?ncbiProteinId=";
-		#print "$seqid"; 
-		#print "&decorator=influenza";	
+	    print "$N|";
+	    $Eb = $E/$N ; print "$Eb";
+
 print "\n";    
 
 
@@ -104,31 +101,31 @@ print "\n";
 #print "$seq\n" unless ($seq eq $oldseq);
 #print "$s ($E)\n" if defined($s);
 $sumframes = $frame0 + $frame1 + $frame2;
-print "$seqid\t";
-print "HxNy\t";
-print "$E\t";
-print "$frame0\t";
-print "$frame1\t";
-print "$frame2\t";
+print "$seqid|";
+print "HxNy|";
+print "$E|";
+print "$frame0|";
+print "$frame1|";
+print "$frame2|";
 if ($sumframes != 0) {
 # What proportion of the paired bases are in each of the three frames?
-	    $pf0 = $frame0/$sumframes; print "$pf0\t";
-	    $pf1 = $frame1/$sumframes; print "$pf1\t";
-	    $pf2 = $frame2/$sumframes; print "$pf2\t";
+	    $pf0 = $frame0/$sumframes; print "$pf0|";
+	    $pf1 = $frame1/$sumframes; print "$pf1|";
+	    $pf2 = $frame2/$sumframes; print "$pf2|";
 }
 if ($unpaired != 0) {
 # What frame accounts for gains or losses of base pairs during evolution?
-	   $uf0 = $frame0/$unpaired; print "$uf0\t";
-	   $uf1 = $frame1/$unpaired; print "$uf1\t";
-	   $uf2 = $frame2/$unpaired; print "$uf2\t";
+	   $uf0 = $frame0/$unpaired; print "$uf0|";
+	   $uf1 = $frame1/$unpaired; print "$uf1|";
+	   $uf2 = $frame2/$unpaired; print "$uf2|";
 }
 #What proportion of bases are unpaired in the whole sequence?
-	    $pu = $unpaired/$F[0]; print "$pu\t";
-print "$unpaired\t";
+	    $pu = $unpaired/$F[0]; print "$pu|";
+print "$unpaired|";
 # What is the average mfe per bp for the sequence?
 	    
-	    print "$N\t";
-	    $Eb = $E/$F[0]; print "$Eb\t";	
+	    print "$N|";
+	    $Eb = $E/$F[0]; print "$Eb|";
 #print a link to the fludb page with info on this particular cds -- only relevant for cds analysis note tab in the line above
 	    	print "http://www.fludb.org/brc/fluSegmentDetails.do?ncbiProteinId=";
 		print "$seqid"; 
