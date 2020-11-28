@@ -33,18 +33,14 @@ while (<>) {
 	    print "$frame0|";
 	    print "$frame1|";
 	    print "$frame2|";
-	    if ($sumframes != 0) {
-    # What proportion of the paired bases are in each of the three frames?
-            $pf0 = $frame0/$sumframes; print "$pf0|";
-            $pf1 = $frame1/$sumframes; print "$pf1|";
-            $pf2 = $frame2/$sumframes; print "$pf2|";
-        }
-        if ($unpaired != 0) {
-    # What frame accounts for gains or losses of base pairs during evolution?
-           $uf0 = $frame0/$unpaired; print "$uf0|";
-           $uf1 = $frame1/$unpaired; print "$uf1|";
-           $uf2 = $frame2/$unpaired; print "$uf2|";
-        }
+# What proportion of the paired bases are in each of the three frames?
+#	    $pf0 = $frame0/$sumframes; print "$pf0|";
+#	    $pf1 = $frame1/$sumframes; print "$pf1|";
+#	    $pf2 = $frame2/$sumframes; print "$pf2|";
+# What frame accounts for gains or losses of base pairs during evolution?
+	   $uf0 = $frame0/$unpaired; print "$uf0|";
+	   $uf1 = $frame1/$unpaired; print "$uf1|";
+	   $uf2 = $frame2/$unpaired; print "$uf2|";
 #What proportion of bases are unpaired in the whole sequence?
 	    $pu = $unpaired/$N ; print "$pu|";
 	    print "$unpaired|";
@@ -107,22 +103,16 @@ print "$E|";
 print "$frame0|";
 print "$frame1|";
 print "$frame2|";
-if ($sumframes != 0) {
 # What proportion of the paired bases are in each of the three frames?
-	    $pf0 = $frame0/$sumframes; print "$pf0|";
-	    $pf1 = $frame1/$sumframes; print "$pf1|";
-	    $pf2 = $frame2/$sumframes; print "$pf2|";
-}
-if ($unpaired != 0) {
+#	    $pf0 = $frame0/$sumframes; print "$pf0|";
+#	    $pf1 = $frame1/$sumframes; print "$pf1|";
+#	    $pf2 = $frame2/$sumframes; print "$pf2|";
 # What frame accounts for gains or losses of base pairs during evolution?
 	   $uf0 = $frame0/$unpaired; print "$uf0|";
 	   $uf1 = $frame1/$unpaired; print "$uf1|";
 	   $uf2 = $frame2/$unpaired; print "$uf2|";
-}
 #What proportion of bases are unpaired in the whole sequence?
-if ($F[0] != 0) {
 	    $pu = $unpaired/$F[0]; print "$pu|";
-}
 print "$unpaired|";
 # What is the average mfe per bp for the sequence?
 	    
@@ -130,7 +120,7 @@ print "$unpaired|";
 	    $Eb = $E/$F[0]; print "$Eb|";
 #print a link to the fludb page with info on this particular cds -- only relevant for cds analysis note tab in the line above
 	    	print "http://www.fludb.org/brc/fluSegmentDetails.do?ncbiProteinId=";
-		print "$seqid"; 
-		print "&decorator=influenza\n";	    
+		print "$seqid";
+		print "&decorator=influenza\n";
 
 # End of file

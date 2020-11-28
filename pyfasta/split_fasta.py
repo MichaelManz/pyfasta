@@ -135,20 +135,20 @@ def split(args):
         return without_kmers(f, names)
     else: 
         return with_kmers(f, names, options.kmers, options.overlap)
+
+
 def slugify(value):
     """
-    Normalizes string, converts to lowercase, removes non-alpha characters,
+    Normalizes string, converts to removes non-alpha characters,
     and converts spaces to hyphens.
     """
-    import unicodedata
-    value = unicodedata.normalize('NFKD', unicode(value)).encode('ascii', 'ignore')
-    value = unicode(re.sub('[^\w\s-]', '_', value).strip().lower())
-    value = unicode(replace_whitespace(value))
+    value = value.replace('|', '_').replace('/', '_').replace('\'', '_')
+    value = replace_whitespace(value)
     return value
 
 
 def replace_whitespace(value):
-    return re.sub('[-\s]+', '-', value)
+    return re.sub('[-\s]+', '_', value).strip()
 
 
 def with_header_names(f, names, normalize=False, max_seq_size=None):
